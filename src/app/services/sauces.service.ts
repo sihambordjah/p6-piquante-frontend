@@ -15,16 +15,13 @@ export class SaucesService {
               private auth: AuthService) {}
 
   getSauces() {
-    this.http
-      .get<Sauce[]>('https://apipiquante.onrender.com/')
-      .pipe(
-        tap((sauces) => this.sauces$.next(sauces)),
-        catchError((error) => {
-          console.error(error.error.message);
-          return of([]);
-        })
-      )
-      .subscribe();
+    this.http.get<Sauce[]>('http://localhost:3000/api/sauces').pipe(
+      tap(sauces => this.sauces$.next(sauces)),
+      catchError(error => {
+        console.error(error.error.message);
+        return of([]);
+      })
+    ).subscribe();
   }
 
   getSauceById(id: string) {
